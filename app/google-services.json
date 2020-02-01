@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "163929122746",
+    "firebase_url": "https://iiit-kalyani-7016f.firebaseio.com",
+    "project_id": "iiit-kalyani-7016f",
+    "storage_bucket": "iiit-kalyani-7016f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163929122746:android:907df31517bc6696731f83",
+        "android_client_info": {
+          "package_name": "com.iiit.iiitkalyani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163929122746-0l6ej0p9q0b4gr8fvn9stpcbqck038at.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iiit.iiitkalyani",
+            "certificate_hash": "f4bdf5beb3c47c9ccdb4710f5aa4c4a7bc4cd22e"
+          }
+        },
+        {
+          "client_id": "163929122746-5ldr4tkgcb43pb884k15aqohv425c2i6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRjwwP3l3Iz0y2jeLNbh45ToWVpM9zUdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163929122746-5ldr4tkgcb43pb884k15aqohv425c2i6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

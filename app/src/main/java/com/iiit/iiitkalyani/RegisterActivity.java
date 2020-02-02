@@ -81,8 +81,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerUser(final String username, final String name, final String email, String password) {
 
-        //pd.setMessage("Please Wail!");
-        //pd.show();
+        pd.setMessage("Please Wail!");
+        pd.show();
 
         mAuth.createUserWithEmailAndPassword(email , password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -96,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "Register Sucessfull", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this , MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                pd.dismiss();
                 startActivity(intent);
                 finish();
 

@@ -16,7 +16,11 @@
         android:name="com.iiit.iiitkalyani.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
-
+    <fragment
+        android:id="@+id/nav_cal"
+        android:name="com.iiit.iiitkalyani.ui.Calender.CalenderFragment"
+        android:label="@string/menu_cale"
+        tools:layout="@layout/fragment_cale" />
     <fragment
         android:id="@+id/nav_tools"
         android:name="com.iiit.iiitkalyani.ui.tools.ToolsFragment"

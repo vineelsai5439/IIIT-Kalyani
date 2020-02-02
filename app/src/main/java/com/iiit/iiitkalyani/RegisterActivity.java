@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(final String username, final String name, final String email, String password) {
-
+        mRootRef = FirebaseDatabase.getInstance().getReference();
         pd.setMessage("Please Wail!");
         pd.show();
 
@@ -93,22 +93,13 @@ public class RegisterActivity extends AppCompatActivity {
                 map.put("email", email);
                 map.put("username" , username);
                 map.put("id" , mAuth.getCurrentUser().getUid());
+                pd.dismiss();
                 Toast.makeText(RegisterActivity.this, "Register Sucessfull", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this , MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                pd.dismiss();
                 startActivity(intent);
                 finish();
-
-/*                mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            pd.dismiss();
-
-                        }
-                    }
-                });*/
+                mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map);
 
             }
         }).addOnFailureListener(new OnFailureListener() {

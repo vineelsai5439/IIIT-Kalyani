@@ -15,7 +15,7 @@ import com.iiit.iiitkalyani.R;
 
 public class ToolsFragment extends Fragment {
 
-    public WebView mWebView;
+    private WebView mWebView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

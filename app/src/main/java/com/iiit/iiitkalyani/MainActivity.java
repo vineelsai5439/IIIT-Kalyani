@@ -3,51 +3,91 @@ package com.iiit.iiitkalyani;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.iiit.iiitkalyani.ui.Calender.CalenderFragment;
+import com.iiit.iiitkalyani.ui.gallery.GalleryFragment;
+import com.iiit.iiitkalyani.ui.home.HomeFragment;
+import com.iiit.iiitkalyani.ui.tools.ToolsFragment;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
+    public TextView name;
+    public TextView email;
+    Fragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_cal,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_tools)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        toolbar.setTitle("Home");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                                new HomeFragment()).commit();
+                        break;
+                    case R.id.nav_gallery:
+                        toolbar.setTitle("Gallery");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                                new GalleryFragment()).commit();
+                        break;
+                    case R.id.nav_tools:
+                        toolbar.setTitle("Fest");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                                new ToolsFragment()).commit();
+                        break;
+                    case R.id.nav_cal:
+                        toolbar.setTitle("Academic Calender");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                                new CalenderFragment()).commit();
+                        break;
+                    case R.id.nav_settings:
+                        Intent intent = new Intent(MainActivity.this,Settings.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_logout:
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(MainActivity.this, "Loged Out", Toast.LENGTH_LONG).show();
+                        Intent logout = new Intent(MainActivity.this,StartActivity.class);
+                        startActivity(logout);
+                        finish();
+                        break;
+                }
 
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -66,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return true;
         }
-
         if (id == R.id.action_settings) {
             Intent sett = new Intent(MainActivity.this,Settings.class);
             startActivity(sett);
@@ -81,4 +120,6 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 }

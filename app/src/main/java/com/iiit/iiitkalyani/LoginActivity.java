@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,18 +26,17 @@ public class LoginActivity extends AppCompatActivity {
     private Button login;
     private TextView registerUser;
     private FirebaseAuth mAuth;
-    ProgressDialog pd;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         login = findViewById(R.id.login);
         registerUser = findViewById(R.id.register_user);
-
+        progressDialog = new ProgressDialog(LoginActivity.this,R.style.MyAlertDialogStyle);
         mAuth = FirebaseAuth.getInstance();
 
         registerUser.setOnClickListener(new View.OnClickListener() {
@@ -49,9 +49,12 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("please wait!");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
-
+                //pd.show();
                 if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
                     Toast.makeText(LoginActivity.this, "Empty Credentials!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -66,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    progressDialog.dismiss();
                     Toast.makeText(LoginActivity.this, "LogIn Sucessfull" , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this , MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

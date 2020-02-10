@@ -11,10 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -83,11 +81,9 @@ public class RegisterActivity extends AppCompatActivity {
         mRootRef = FirebaseDatabase.getInstance().getReference();
         pd.setMessage("Please Wail!");
         pd.show();
-
         mAuth.createUserWithEmailAndPassword(email , password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-
                 HashMap<String , Object> map = new HashMap<>();
                 map.put("name" , name);
                 map.put("email", email);
@@ -100,7 +96,6 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 mRootRef.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map);
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

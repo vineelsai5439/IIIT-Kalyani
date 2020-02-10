@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private Button login;
     private TextView registerUser;
+    private TextView reset;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
 
@@ -38,6 +39,14 @@ public class LoginActivity extends AppCompatActivity {
         registerUser = findViewById(R.id.register_user);
         progressDialog = new ProgressDialog(LoginActivity.this,R.style.MyAlertDialogStyle);
         mAuth = FirebaseAuth.getInstance();
+        reset = findViewById(R.id.forgotpass);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reset = new Intent(LoginActivity.this,PassReset.class);
+                startActivity(reset);
+            }
+        });
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override

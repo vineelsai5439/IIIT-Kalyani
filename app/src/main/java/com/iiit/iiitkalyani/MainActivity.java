@@ -1,18 +1,39 @@
 package com.iiit.iiitkalyani;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-
+import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.load.engine.Resource;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iiit.iiitkalyani.ui.Calender.CalenderFragment;
 import com.iiit.iiitkalyani.ui.gallery.GalleryFragment;
 import com.iiit.iiitkalyani.ui.home.HomeFragment;
@@ -21,15 +42,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.squareup.picasso.Picasso;
+
+import java.security.MessageDigest;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public TextView name;
     public TextView email;
-    Fragment fragment;
+    public ImageView img;
+    String personName;
+    String personEmail;
+    Uri personPhoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,12 +117,28 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+        if (acct != null) {
+            personName = acct.getDisplayName();
+            personEmail = acct.getEmail();
+            personPhoto = acct.getPhotoUrl();
+        }
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        View header=navigationView.getHeaderView(0);
+        name = header.findViewById(R.id.usrname);
+        email = header.findViewById(R.id.usremail);
+        img = header.findViewById(R.id.usrimg);
+        name.setText(personName);
+        email.setText(personEmail);
+        Glide.with(this).load(personPhoto).circleCrop().into(img);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

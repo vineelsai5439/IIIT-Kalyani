@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Blog"></activity>
+        <activity android:name=".PassReset"/>
+        <activity android:name=".UploadPics" />
+        <activity android:name=".Blog" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

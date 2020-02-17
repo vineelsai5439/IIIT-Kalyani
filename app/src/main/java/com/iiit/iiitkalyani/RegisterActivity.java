@@ -26,8 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText name;
     private EditText email;
     private EditText password;
-    private Button register;
-    private TextView loginUser;
 
     private DatabaseReference mRootRef;
     private FirebaseAuth mAuth;
@@ -43,8 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        register = findViewById(R.id.register);
-        loginUser = findViewById(R.id.login_user);
+        Button register = findViewById(R.id.register);
+        TextView loginUser = findViewById(R.id.login_user);
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();

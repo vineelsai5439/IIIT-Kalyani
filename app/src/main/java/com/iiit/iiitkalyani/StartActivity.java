@@ -29,11 +29,8 @@ public class StartActivity extends AppCompatActivity {
 
     private ImageView iconImage;
     private LinearLayout linearLayout;
-    private Button register;
-    private Button login;
     private FirebaseAuth mAuth;
     public static int RC_SIGN_IN =1;
-    private SignInButton Gsignin;
     private GoogleSignInClient mGoogleSignInClient;
 
 
@@ -45,9 +42,9 @@ public class StartActivity extends AppCompatActivity {
 
         iconImage = findViewById(R.id.icon_image);
         linearLayout = findViewById(R.id.linear_layout);
-        register = findViewById(R.id.register);
-        login = findViewById(R.id.login);
-        Gsignin = findViewById(R.id.Gsignin);
+        Button register = findViewById(R.id.register);
+        Button login = findViewById(R.id.login);
+        SignInButton gsignin = findViewById(R.id.Gsignin);
 
         linearLayout.animate().alpha(0f).setDuration(10);
 
@@ -74,7 +71,7 @@ public class StartActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Gsignin.setOnClickListener(new View.OnClickListener() {
+        gsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();

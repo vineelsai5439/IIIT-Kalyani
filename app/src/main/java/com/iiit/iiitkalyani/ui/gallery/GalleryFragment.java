@@ -29,7 +29,6 @@ public class GalleryFragment extends Fragment {
     private ImgAdapter mAdapter;
     private FloatingActionButton btn;
     private ProgressBar mProgressCircle;
-    private GalleryViewModel galleryViewModel;
     private DatabaseReference mDatabaseRef;
     private List<Upload> mUploads;
 

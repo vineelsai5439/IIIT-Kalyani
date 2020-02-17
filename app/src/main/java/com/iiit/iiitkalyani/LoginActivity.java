@@ -2,7 +2,6 @@ package com.iiit.iiitkalyani;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,9 +21,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
-    private Button login;
-    private TextView registerUser;
-    private TextView reset;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
 
@@ -35,11 +30,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        login = findViewById(R.id.login);
-        registerUser = findViewById(R.id.register_user);
+        Button login = findViewById(R.id.login);
+        TextView registerUser = findViewById(R.id.register_user);
         progressDialog = new ProgressDialog(LoginActivity.this,R.style.MyAlertDialogStyle);
         mAuth = FirebaseAuth.getInstance();
-        reset = findViewById(R.id.forgotpass);
+        TextView reset = findViewById(R.id.forgotpass);
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

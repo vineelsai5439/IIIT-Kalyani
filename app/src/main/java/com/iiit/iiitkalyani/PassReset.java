@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PassReset extends AppCompatActivity {
     private EditText email;
-    private Button confirm;
     private TextView txt;
     private FirebaseAuth auth;
 
@@ -25,7 +24,7 @@ public class PassReset extends AppCompatActivity {
         setContentView(R.layout.activity_pass_reset);
         auth = FirebaseAuth.getInstance();
         email = findViewById(R.id.email);
-        confirm = findViewById(R.id.confirm);
+        Button confirm = findViewById(R.id.confirm);
         txt = findViewById(R.id.txt);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -27,7 +27,4 @@
         android:backgroundTint="@android:color/holo_blue_light"
         android:clickable="true"
         android:src="@drawable/ic_add" />
-
-
-
 </RelativeLayout>

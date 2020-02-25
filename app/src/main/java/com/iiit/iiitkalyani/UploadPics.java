@@ -80,7 +80,7 @@ public class UploadPics extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
-            Picasso.with(this).load(mImageUri).into(mImageView);
+            Picasso.get().load(mImageUri).into(mImageView);
         }
     }
 
@@ -117,7 +117,7 @@ public class UploadPics extends AppCompatActivity {
                     HashMap<String , Object> map = new HashMap<>();
                     map.put("name" , mEditTextFileName.getText().toString());
                     map.put("imageUrl" , imageUrl);
-                    map.put("publisher" , FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    map.put("publisher" , FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                     ref.child(ID).setValue(map);
                     pd.dismiss();
                     startActivity(new Intent(UploadPics.this , MainActivity.class));

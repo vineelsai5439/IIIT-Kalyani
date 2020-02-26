@@ -25,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.squareup.picasso.Picasso;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Blog extends AppCompatActivity {
 
@@ -113,15 +114,19 @@ public class Blog extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     Uri downloadUri = task.getResult();
-                    imageUrl = downloadUri.toString();
+                    if (downloadUri != null) {
+                        imageUrl = downloadUri.toString();
+                    }
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("blog");
                     String ID = ref.push().getKey();
                     HashMap<String , Object> map = new HashMap<>();
                     map.put("title" , title.getText().toString());
                     map.put("description" , description.getText().toString());
                     map.put("imageUrl" , imageUrl);
-                    map.put("publisher" , FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                    ref.child(ID).setValue(map);
+                    map.put("name" , Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
+                    if (ID != null) {
+                        ref.child(ID).setValue(map);
+                    }
                     pd.dismiss();
                     startActivity(new Intent(Blog.this , MainActivity.class));
                     finish();

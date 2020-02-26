@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
@@ -13,7 +15,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ImageViewHolder> {
+public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
     private Context mContext;
     private List<Download> mdownloads;
 
@@ -24,16 +26,16 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ImageViewHolde
 
     @NonNull
     @Override
-    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.blog_item, parent, false);
-        return new ImageViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ImageViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Download uploadCurrent = mdownloads.get(position);
-        Picasso.get().load(uploadCurrent.getprofileimg()).placeholder(R.drawable.logo).into(holder.profile_image);
-        holder.profile_name.setText(uploadCurrent.getName());
+        Picasso.get().load(uploadCurrent.getprofileimg()).placeholder(R.drawable.profile).into(holder.profile_image);
+        holder.pro_name.setText(uploadCurrent.getname());
         holder.title.setText(uploadCurrent.gettitle());
         holder.des.setText(uploadCurrent.getdescription());
         Picasso.get().load(uploadCurrent.getImageUrl()).placeholder(R.drawable.logo).into(holder.imageView);
@@ -44,17 +46,17 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ImageViewHolde
         return mdownloads.size();
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView des;
-        public TextView profile_name;
+        public TextView pro_name;
         public ImageView imageView;
         public CircleImageView profile_image;
-        public ImageViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             profile_image = itemView.findViewById(R.id.profile_image);
-            profile_name = itemView.findViewById(R.id.profile_name);
-            des = itemView.findViewById(R.id.post_descreption);
+            pro_name = itemView.findViewById(R.id.profile_name);
+            des = itemView.findViewById(R.id.post_description);
             title = itemView.findViewById(R.id.post_title);
             imageView = itemView.findViewById(R.id.post_image);
         }

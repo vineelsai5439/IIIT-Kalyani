@@ -40,7 +40,7 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ImageViewHolder>
         return mUploads.size();
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
+    public static class ImageViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewName;
         public ImageView imageView;
         public ImageViewHolder(View itemView) {

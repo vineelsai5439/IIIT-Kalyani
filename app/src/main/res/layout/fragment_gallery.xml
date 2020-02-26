@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.iiit.iiitkalyani.ui.gallery.GalleryFragment">
+    tools:context="com.iiit.iiitkalyani.ui.GalleryFragment">
 
     <ProgressBar
         android:id="@+id/progress_circle"

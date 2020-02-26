@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.iiit.iiitkalyani.ui.home.HomeFragment"
+        android:name="com.iiit.iiitkalyani.ui.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.iiit.iiitkalyani.ui.gallery.GalleryFragment"
+        android:name="com.iiit.iiitkalyani.ui.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
     <fragment
         android:id="@+id/nav_cal"
-        android:name="com.iiit.iiitkalyani.ui.Calender.CalenderFragment"
+        android:name="com.iiit.iiitkalyani.ui.CalenderFragment"
         android:label="@string/menu_cale"
         tools:layout="@layout/fragment_cale" />
     <fragment
         android:id="@+id/nav_tools"
-        android:name="com.iiit.iiitkalyani.ui.tools.ToolsFragment"
+        android:name="com.iiit.iiitkalyani.ui.FestFragment"
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_tools" />
 </navigation>

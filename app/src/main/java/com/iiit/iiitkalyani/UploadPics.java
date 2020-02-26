@@ -25,11 +25,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.squareup.picasso.Picasso;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class UploadPics extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-
     private EditText mEditTextFileName;
     private ImageView mImageView;
     private String imageUrl;
@@ -51,7 +51,6 @@ public class UploadPics extends AppCompatActivity {
                 openFileChooser();
             }
         });
-
         mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,11 +98,12 @@ public class UploadPics extends AppCompatActivity {
             final StorageReference filePath = FirebaseStorage.getInstance().getReference("uploads").child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
 
             StorageTask uploadtask = filePath.putFile(mImageUri);
+            //noinspection unchecked
             uploadtask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
                     if (!task.isSuccessful()){
-                        throw task.getException();
+                        throw Objects.requireNonNull(task.getException());
                     }
                     return filePath.getDownloadUrl();
                 }
@@ -111,14 +111,18 @@ public class UploadPics extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     Uri downloadUri = task.getResult();
-                    imageUrl = downloadUri.toString();
+                    if (downloadUri != null) {
+                        imageUrl = downloadUri.toString();
+                    }
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("uploads");
                     String ID = ref.push().getKey();
                     HashMap<String , Object> map = new HashMap<>();
                     map.put("name" , mEditTextFileName.getText().toString());
                     map.put("imageUrl" , imageUrl);
-                    map.put("publisher" , FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                    ref.child(ID).setValue(map);
+                    map.put("publisher" , Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
+                    if (ID != null) {
+                        ref.child(ID).setValue(map);
+                    }
                     pd.dismiss();
                     startActivity(new Intent(UploadPics.this , MainActivity.class));
                     finish();

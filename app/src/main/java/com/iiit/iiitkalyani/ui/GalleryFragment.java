@@ -1,4 +1,4 @@
-package com.iiit.iiitkalyani.ui.gallery;
+package com.iiit.iiitkalyani.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +17,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.iiit.iiitkalyani.ImgAdapter;
+import com.iiit.iiitkalyani.Adapter.ImgAdapter;
 import com.iiit.iiitkalyani.R;
-import com.iiit.iiitkalyani.Upload;
+import com.iiit.iiitkalyani.Adapter.Upload;
 import com.iiit.iiitkalyani.UploadPics;
 import java.util.ArrayList;
 import java.util.List;

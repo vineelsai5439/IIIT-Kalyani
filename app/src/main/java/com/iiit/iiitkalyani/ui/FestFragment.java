@@ -1,4 +1,4 @@
-package com.iiit.iiitkalyani.ui.tools;
+package com.iiit.iiitkalyani.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.iiit.iiitkalyani.R;
 
 
-public class ToolsFragment extends Fragment {
+public class FestFragment extends Fragment {
 
     private WebView mWebView;
 

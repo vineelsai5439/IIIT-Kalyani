@@ -1,6 +1,7 @@
-package com.iiit.iiitkalyani.ui.home;
+package com.iiit.iiitkalyani.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,21 +18,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.iiit.iiitkalyani.Blog;
-import com.iiit.iiitkalyani.BlogAdapter;
-import com.iiit.iiitkalyani.Download;
+import com.iiit.iiitkalyani.Blog_Post;
+import com.iiit.iiitkalyani.Adapter.BlogAdapter;
+import com.iiit.iiitkalyani.Adapter.Download;
 import com.iiit.iiitkalyani.R;
-import com.iiit.iiitkalyani.Upload;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private BlogAdapter mAdapter;
-    private FloatingActionButton btn;
     private ProgressBar mProgressCircle;
-    private DatabaseReference mDatabaseRef;
-    private List<Download> mUploads;
+    private List<Download> mDownloads;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,33 +37,40 @@ public class HomeFragment extends Fragment {
         mRecyclerView = root.findViewById(R.id.view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        btn = root.findViewById(R.id.btnupload);
+        FloatingActionButton btn = root.findViewById(R.id.btnupload);
         mProgressCircle = root.findViewById(R.id.progress_circle);
-        mUploads = new ArrayList<>();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("blog");
+        mDownloads = new ArrayList<>();
+        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("blog");
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Download download = postSnapshot.getValue(Download.class);
-                    mUploads.add(download);
+                    mDownloads.add(download);
                 }
 
-                mAdapter = new BlogAdapter(getContext(), mUploads);
-
+                mAdapter = new BlogAdapter(getContext(), mDownloads);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                layoutManager.setReverseLayout(true);
+                layoutManager.setStackFromEnd(true);
+                mRecyclerView.setLayoutManager(layoutManager);
                 mRecyclerView.setAdapter(mAdapter);
+                mProgressCircle.getProgressDrawable().setColorFilter(
+                        Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                mProgressCircle.getProgressDrawable().setColorFilter(
+                        Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Blog.class);
+                Intent intent = new Intent(getActivity(), Blog_Post.class);
                 startActivity(intent);
             }
         });

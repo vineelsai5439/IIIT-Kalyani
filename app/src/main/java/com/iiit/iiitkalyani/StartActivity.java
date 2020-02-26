@@ -29,8 +29,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class StartActivity extends AppCompatActivity {
 
-    private ImageView iconImage;
-    private LinearLayout linearLayout;
     private FirebaseAuth mAuth;
     public static int RC_SIGN_IN =1;
     private GoogleSignInClient mGoogleSignInClient;
@@ -41,21 +39,9 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
-        iconImage = findViewById(R.id.icon_image);
-        linearLayout = findViewById(R.id.linear_layout);
         Button register = findViewById(R.id.register);
         Button login = findViewById(R.id.login);
         SignInButton gsignin = findViewById(R.id.Gsignin);
-
-        linearLayout.animate().alpha(0f).setDuration(10);
-
-        TranslateAnimation animation = new TranslateAnimation(0 , 0 , 0 , 0);
-        animation.setDuration(1000);
-        animation.setFillAfter(false);
-        animation.setAnimationListener(new MyAnimationListener());
-
-        iconImage.setAnimation(animation);
         mAuth = FirebaseAuth.getInstance();
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -124,29 +110,6 @@ public class StartActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
-
-private class MyAnimationListener implements Animation.AnimationListener {
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
-        @Override
-        public void onAnimationEnd(Animation animation) {
-
-            iconImage.clearAnimation();
-            iconImage.setVisibility(View.INVISIBLE);
-            linearLayout.animate().alpha(1f).setDuration(1000);
-
-        }
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-    }
-
     @Override
     protected void onStart() {
         super.onStart();

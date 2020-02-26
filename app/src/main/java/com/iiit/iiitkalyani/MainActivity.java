@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import androidx.fragment.app.Fragment;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -18,10 +18,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.iiit.iiitkalyani.ui.Calender.CalenderFragment;
-import com.iiit.iiitkalyani.ui.gallery.GalleryFragment;
-import com.iiit.iiitkalyani.ui.home.HomeFragment;
-import com.iiit.iiitkalyani.ui.tools.ToolsFragment;
+import com.iiit.iiitkalyani.ui.CalenderFragment;
+import com.iiit.iiitkalyani.ui.GalleryFragment;
+import com.iiit.iiitkalyani.ui.HomeFragment;
+import com.iiit.iiitkalyani.ui.FestFragment;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_tools:
                         toolbar.setTitle("Fest");
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                                new ToolsFragment()).commit();
+                                new FestFragment()).commit();
                         break;
                     case R.id.nav_cal:
                         toolbar.setTitle("Academic Calender");

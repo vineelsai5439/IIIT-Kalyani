@@ -1,4 +1,4 @@
-package com.iiit.iiitkalyani;
+package com.iiit.iiitkalyani.Adapter;
 
 public class Upload {
     private String mName;

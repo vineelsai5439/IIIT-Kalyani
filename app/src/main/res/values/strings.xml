@@ -22,4 +22,5 @@
     <string name="Description">Description</string>
     <string name="TimeTable">Time Table</string>
     <string name="AcademicCalendar">Academic Calendar</string>
+    <string name="todo">TODO</string>
 </resources>

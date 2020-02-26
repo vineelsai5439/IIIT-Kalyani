@@ -1,4 +1,4 @@
-package com.iiit.iiitkalyani.ui.Calender;
+package com.iiit.iiitkalyani.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

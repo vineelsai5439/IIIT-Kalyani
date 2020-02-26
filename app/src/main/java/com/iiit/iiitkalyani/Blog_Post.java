@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class Blog extends AppCompatActivity {
+public class Blog_Post extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -41,7 +41,7 @@ public class Blog extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blog);
+        setContentView(R.layout.activity_blog_post);
 
         Button mButtonChooseImage = findViewById(R.id.button_choose_image);
         Button mButtonUpload = findViewById(R.id.button_upload);
@@ -59,7 +59,7 @@ public class Blog extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
-                    Toast.makeText(Blog.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Blog_Post.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadFile();
                 }
@@ -102,11 +102,12 @@ public class Blog extends AppCompatActivity {
             final StorageReference filePath = FirebaseStorage.getInstance().getReference("blog").child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
 
             StorageTask uploadtask = filePath.putFile(mImageUri);
+            //noinspection unchecked
             uploadtask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
                     if (!task.isSuccessful()){
-                        throw task.getException();
+                        throw Objects.requireNonNull(task.getException());
                     }
                     return filePath.getDownloadUrl();
                 }
@@ -128,13 +129,13 @@ public class Blog extends AppCompatActivity {
                         ref.child(ID).setValue(map);
                     }
                     pd.dismiss();
-                    startActivity(new Intent(Blog.this , MainActivity.class));
+                    startActivity(new Intent(Blog_Post.this , MainActivity.class));
                     finish();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Blog.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Blog_Post.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {

@@ -25,5 +25,5 @@
         android:id="@+id/nav_tools"
         android:name="com.iiit.iiitkalyani.ui.FestFragment"
         android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_fest" />
 </navigation>

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -32,7 +34,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         Download uploadCurrent = mdownloads.get(position);
         Picasso.get().load(uploadCurrent.getprofileimg()).placeholder(R.drawable.profile).into(holder.profile_image);
         holder.pro_name.setText(uploadCurrent.getname());
@@ -59,6 +61,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
             des = itemView.findViewById(R.id.post_description);
             title = itemView.findViewById(R.id.post_title);
             imageView = itemView.findViewById(R.id.post_image);
+
         }
     }
 }

@@ -1,42 +1,60 @@
 package com.iiit.iiitkalyani.ui;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.iiit.iiitkalyani.R;
 
-
 public class FestFragment extends Fragment {
 
-    private WebView WebView;
+    private ImageView logo;
+    private RelativeLayout layout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
-        WebView = root.findViewById(R.id.web);
-        WebView.setWebViewClient(new WebViewClient());
-        WebView.loadUrl("https://gauravanand563.github.io/iiitkfest/");
-        WebView.getSettings().setJavaScriptEnabled(true);
-        WebView.canGoBack();
-        WebView.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK
-                        && event.getAction() == MotionEvent.ACTION_UP
-                        && WebView.canGoBack()) {
-                    WebView.goBack();
-                    return true;
-                }
-                return false;
-            }
-        });
+        View root = inflater.inflate(R.layout.fragment_fest, container, false);
+        logo = root.findViewById(R.id.logo);
+        layout = root.findViewById(R.id.layout);
+
+        //layout.animate().alpha(0f).setDuration(10);
+
+        TranslateAnimation animation = new TranslateAnimation(0 , 0 , 0 , -1000);
+        animation.setDuration(2000);
+        animation.setFillAfter(false);
+        animation.setAnimationListener(new MyAnimationListener());
+
+        logo.setAnimation(animation);
+
         return root;
 
+    }
+    private class MyAnimationListener implements Animation.AnimationListener {
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+            layout.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+            logo.clearAnimation();
+            logo.setVisibility(View.INVISIBLE);
+            layout.setVisibility(View.VISIBLE);
+            layout.animate().alpha(1f).setDuration(1000);
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
     }
 }

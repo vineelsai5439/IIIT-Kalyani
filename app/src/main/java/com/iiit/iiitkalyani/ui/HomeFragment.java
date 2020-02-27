@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -38,7 +39,6 @@ public class HomeFragment extends Fragment {
         RecyclerView.setHasFixedSize(true);
         RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FloatingActionButton btn = root.findViewById(R.id.btnupload);
-
         ProgressCircle = root.findViewById(R.id.progress_circle);
         Downloads = new ArrayList<>();
         DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("blog");

@@ -25,40 +25,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryFragment extends Fragment {
-    private RecyclerView mRecyclerView;
-    private ImgAdapter mAdapter;
-    private FloatingActionButton btn;
-    private ProgressBar mProgressCircle;
-    private DatabaseReference mDatabaseRef;
+    private RecyclerView RecyclerView;
+    private ImgAdapter Adapter;
+    private ProgressBar ProgressCircle;
     private List<Upload> mUploads;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        mRecyclerView = root.findViewById(R.id.view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        btn = root.findViewById(R.id.btnupload);
-        mProgressCircle = root.findViewById(R.id.progress_circle);
+        RecyclerView = root.findViewById(R.id.view);
+        RecyclerView.setHasFixedSize(true);
+        RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        FloatingActionButton btn = root.findViewById(R.id.btnupload);
+        ProgressCircle = root.findViewById(R.id.progress_circle);
         mUploads = new ArrayList<>();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Upload upload = postSnapshot.getValue(Upload.class);
                     mUploads.add(upload);
                 }
 
-                mAdapter = new ImgAdapter(getContext(), mUploads);
+                Adapter = new ImgAdapter(getContext(), mUploads);
 
-                mRecyclerView.setAdapter(mAdapter);
-                mProgressCircle.setVisibility(View.INVISIBLE);
+                RecyclerView.setAdapter(Adapter);
+                ProgressCircle.setVisibility(View.INVISIBLE);
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                mProgressCircle.setVisibility(View.INVISIBLE);
+                ProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {

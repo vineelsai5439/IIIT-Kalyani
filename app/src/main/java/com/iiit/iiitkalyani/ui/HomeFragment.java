@@ -26,45 +26,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    private RecyclerView mRecyclerView;
-    private BlogAdapter mAdapter;
-    private ProgressBar mProgressCircle;
-    private List<Download> mDownloads;
+    private RecyclerView RecyclerView;
+    private BlogAdapter Adapter;
+    private ProgressBar ProgressCircle;
+    private List<Download> Downloads;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        mRecyclerView = root.findViewById(R.id.view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView = root.findViewById(R.id.view);
+        RecyclerView.setHasFixedSize(true);
+        RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FloatingActionButton btn = root.findViewById(R.id.btnupload);
-        mProgressCircle = root.findViewById(R.id.progress_circle);
-        mDownloads = new ArrayList<>();
+
+        ProgressCircle = root.findViewById(R.id.progress_circle);
+        Downloads = new ArrayList<>();
         DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("blog");
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Download download = postSnapshot.getValue(Download.class);
-                    mDownloads.add(download);
+                    Downloads.add(download);
                 }
 
-                mAdapter = new BlogAdapter(getContext(), mDownloads);
+                Adapter = new BlogAdapter(getContext(), Downloads);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 layoutManager.setReverseLayout(true);
                 layoutManager.setStackFromEnd(true);
-                mRecyclerView.setLayoutManager(layoutManager);
-                mRecyclerView.setAdapter(mAdapter);
-                mProgressCircle.getProgressDrawable().setColorFilter(
+                RecyclerView.setLayoutManager(layoutManager);
+                RecyclerView.setAdapter(Adapter);
+                ProgressCircle.getProgressDrawable().setColorFilter(
                         Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
-                mProgressCircle.setVisibility(View.INVISIBLE);
+                ProgressCircle.setVisibility(View.INVISIBLE);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                mProgressCircle.getProgressDrawable().setColorFilter(
+                ProgressCircle.getProgressDrawable().setColorFilter(
                         Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
-                mProgressCircle.setVisibility(View.INVISIBLE);
+                ProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {

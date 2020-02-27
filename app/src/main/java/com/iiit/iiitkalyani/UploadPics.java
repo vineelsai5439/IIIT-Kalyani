@@ -30,11 +30,11 @@ import java.util.Objects;
 public class UploadPics extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private EditText mEditTextFileName;
-    private ImageView mImageView;
+    private EditText EditTextFileName;
+    private ImageView ImageView;
     private String imageUrl;
-    private Uri mImageUri;
-    private StorageTask mUploadTask;
+    private Uri ImageUri;
+    private StorageTask UploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,8 @@ public class UploadPics extends AppCompatActivity {
 
         Button mButtonChooseImage = findViewById(R.id.button_choose_image);
         Button mButtonUpload = findViewById(R.id.button_upload);
-        mEditTextFileName = findViewById(R.id.edit_text_file_name);
-        mImageView = findViewById(R.id.image_view);
+        EditTextFileName = findViewById(R.id.edit_text_file_name);
+        ImageView = findViewById(R.id.image_view);
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class UploadPics extends AppCompatActivity {
         mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUploadTask != null && mUploadTask.isInProgress()) {
+                if (UploadTask != null && UploadTask.isInProgress()) {
                     Toast.makeText(UploadPics.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadFile();
@@ -77,9 +77,9 @@ public class UploadPics extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-            mImageUri = data.getData();
+            ImageUri = data.getData();
 
-            Picasso.get().load(mImageUri).into(mImageView);
+            Picasso.get().load(ImageUri).into(ImageView);
         }
     }
 
@@ -94,10 +94,10 @@ public class UploadPics extends AppCompatActivity {
         pd.setMessage("Uploading");
         pd.show();
 
-        if (mImageUri != null){
-            final StorageReference filePath = FirebaseStorage.getInstance().getReference("uploads").child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+        if (ImageUri != null){
+            final StorageReference filePath = FirebaseStorage.getInstance().getReference("uploads").child(System.currentTimeMillis() + "." + getFileExtension(ImageUri));
 
-            StorageTask uploadtask = filePath.putFile(mImageUri);
+            StorageTask uploadtask = filePath.putFile(ImageUri);
             //noinspection unchecked
             uploadtask.continueWithTask(new Continuation() {
                 @Override
@@ -117,7 +117,7 @@ public class UploadPics extends AppCompatActivity {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("uploads");
                     String ID = ref.push().getKey();
                     HashMap<String , Object> map = new HashMap<>();
-                    map.put("name" , mEditTextFileName.getText().toString());
+                    map.put("name" , EditTextFileName.getText().toString());
                     map.put("imageUrl" , imageUrl);
                     map.put("publisher" , Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
                     if (ID != null) {

@@ -29,9 +29,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class StartActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth Auth;
     public static int RC_SIGN_IN =1;
-    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient GoogleSignInClient;
 
 
 
@@ -42,7 +42,7 @@ public class StartActivity extends AppCompatActivity {
         Button register = findViewById(R.id.register);
         Button login = findViewById(R.id.login);
         SignInButton gsignin = findViewById(R.id.Gsignin);
-        mAuth = FirebaseAuth.getInstance();
+        Auth = FirebaseAuth.getInstance();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,10 +70,10 @@ public class StartActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
     private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        Intent signInIntent = GoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -95,7 +95,7 @@ public class StartActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
+        Auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

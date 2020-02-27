@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth Auth;
     private ProgressDialog progressDialog;
 
     @Override
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         Button login = findViewById(R.id.login);
         TextView registerUser = findViewById(R.id.register_user);
         progressDialog = new ProgressDialog(LoginActivity.this,R.style.MyAlertDialogStyle);
-        mAuth = FirebaseAuth.getInstance();
+        Auth = FirebaseAuth.getInstance();
         TextView reset = findViewById(R.id.forgotpass);
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email , password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        Auth.signInWithEmailAndPassword(email , password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){

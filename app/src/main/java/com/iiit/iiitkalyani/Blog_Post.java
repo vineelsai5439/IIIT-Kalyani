@@ -33,9 +33,9 @@ public class Blog_Post extends AppCompatActivity {
 
     private EditText title;
     private EditText description;
-    private ImageView mImageView;
+    private ImageView ImageView;
     private String imageUrl;
-    private Uri mImageUri;
+    private Uri ImageUri;
     private StorageTask mUploadTask;
 
     @Override
@@ -47,7 +47,7 @@ public class Blog_Post extends AppCompatActivity {
         Button mButtonUpload = findViewById(R.id.button_upload);
         title = findViewById(R.id.edit_text_title);
         description = findViewById(R.id.edit_text_description);
-        mImageView = findViewById(R.id.image_view);
+        ImageView = findViewById(R.id.image_view);
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,9 +81,9 @@ public class Blog_Post extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-            mImageUri = data.getData();
+            ImageUri = data.getData();
 
-            Picasso.get().load(mImageUri).into(mImageView);
+            Picasso.get().load(ImageUri).into(ImageView);
         }
     }
 
@@ -98,10 +98,10 @@ public class Blog_Post extends AppCompatActivity {
         pd.setMessage("Uploading");
         pd.show();
 
-        if (mImageUri != null){
-            final StorageReference filePath = FirebaseStorage.getInstance().getReference("blog").child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+        if (ImageUri != null){
+            final StorageReference filePath = FirebaseStorage.getInstance().getReference("blog").child(System.currentTimeMillis() + "." + getFileExtension(ImageUri));
 
-            StorageTask uploadtask = filePath.putFile(mImageUri);
+            StorageTask uploadtask = filePath.putFile(ImageUri);
             //noinspection unchecked
             uploadtask.continueWithTask(new Continuation() {
                 @Override

@@ -4,15 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,7 +24,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class StartActivity extends AppCompatActivity {
 
     private FirebaseAuth Auth;
-    public static int RC_SIGN_IN =1;
+    public static int RC_SIGN_IN = 1;
     private GoogleSignInClient GoogleSignInClient;
 
 
@@ -93,14 +87,13 @@ public class StartActivity extends AppCompatActivity {
         }
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         Auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("TAG", "signInWithCredential:success");
+                            Toast.makeText(StartActivity.this,"Sign in Successful",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StartActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();

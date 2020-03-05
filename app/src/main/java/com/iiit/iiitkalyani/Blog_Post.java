@@ -36,6 +36,7 @@ public class Blog_Post extends AppCompatActivity {
     private ImageView ImageView;
     private String imageUrl;
     private Uri ImageUri;
+    private String Profile;
     private StorageTask mUploadTask;
 
     @Override
@@ -118,12 +119,15 @@ public class Blog_Post extends AppCompatActivity {
                     if (downloadUri != null) {
                         imageUrl = downloadUri.toString();
                     }
+                    Profile = Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhotoUrl()).toString();
+
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("blog");
                     String ID = ref.push().getKey();
                     HashMap<String , Object> map = new HashMap<>();
                     map.put("title" , title.getText().toString());
                     map.put("description" , description.getText().toString());
                     map.put("imageUrl" , imageUrl);
+                    map.put("ProfileUrl" , Profile);
                     map.put("name" , Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
                     if (ID != null) {
                         ref.child(ID).setValue(map);
@@ -140,6 +144,7 @@ public class Blog_Post extends AppCompatActivity {
             });
         } else {
             Toast.makeText(this, "No image was selected!", Toast.LENGTH_SHORT).show();
+            pd.dismiss();
         }
     }
 }

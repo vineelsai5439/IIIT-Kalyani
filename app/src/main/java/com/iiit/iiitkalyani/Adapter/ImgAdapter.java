@@ -43,9 +43,9 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ImageViewHolder>
     }
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewName;
-        public ImageView imageView;
-        public ImageViewHolder(View itemView) {
+        private TextView textViewName;
+        private ImageView imageView;
+        private ImageViewHolder(View itemView) {
             super(itemView);
 
             textViewName = itemView.findViewById(R.id.text_view_name);

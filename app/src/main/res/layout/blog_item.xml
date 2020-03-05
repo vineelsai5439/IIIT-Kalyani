@@ -2,15 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardPreventCornerOverlap="true"
+    app:contentPadding="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/background"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/Profile_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
@@ -26,7 +31,7 @@
             android:layout_above="@+id/post_image"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@+id/profile_image"
+            android:layout_toEndOf="@+id/Profile_image"
             android:text="@string/Name"
             android:textAlignment="textStart"
             android:textColor="@color/black"
@@ -37,63 +42,71 @@
             android:id="@+id/post_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_below="@+id/profile_image"
+            android:layout_below="@+id/Profile_image"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/logo"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/todo"
+            app:srcCompat="@drawable/logo" />
 
-        <TextView
-            android:id="@+id/post_title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/post_image"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/Title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="italic"
-            android:theme="@style/AppTheme" />
+            android:layout_below="@id/post_image"
+            android:background="@drawable/background1">
 
-        <TextView
-            android:id="@+id/post_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/post_title"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/Description"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="italic" />
+            <TextView
+                android:id="@+id/post_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="italic"
+                android:theme="@style/AppTheme" />
 
-        <ImageButton
-            android:id="@+id/btnlike"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/post_description"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorWhite"
-            android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/like_not" />
+            <TextView
+                android:id="@+id/post_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/post_title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/Description"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="italic" />
 
-        <ImageButton
-            android:id="@+id/btndownload"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/post_description"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorWhite"
-            android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/download" />
+            <ImageButton
+                android:id="@+id/btnlike"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/post_description"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/todo"
+                app:srcCompat="@drawable/like_not" />
+
+            <ImageButton
+                android:id="@+id/btndownload"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/post_description"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/todo"
+                app:srcCompat="@drawable/download" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

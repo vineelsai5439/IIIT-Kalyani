@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -16,8 +15,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.iiit.iiitkalyani.ui.CalenderFragment;
 import com.iiit.iiitkalyani.ui.GalleryFragment;
 import com.iiit.iiitkalyani.ui.HomeFragment;
@@ -30,6 +27,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -91,19 +90,28 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(logout);
                         finish();
                         break;
+                    default:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                                new HomeFragment()).commit();
+                        toolbar.setTitle("Home");
+                        break;
                 }
 
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
         if (acct != null) {
             personName = acct.getDisplayName();
             personEmail = acct.getEmail();
             personPhoto = acct.getPhotoUrl();
+        }else {
+            personName = Objects.requireNonNull(auth.getCurrentUser()).getDisplayName();
+            personPhoto = auth.getCurrentUser().getPhotoUrl();
+            personEmail = auth.getCurrentUser().getEmail();
         }
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         View header=navigationView.getHeaderView(0);
         name = header.findViewById(R.id.usrname);
@@ -111,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         img = header.findViewById(R.id.usrimg);
         name.setText(personName);
         email.setText(personEmail);
-        Glide.with(this).load(personPhoto).circleCrop().into(img);
+        Glide.with(this).load(personPhoto).circleCrop().placeholder(R.mipmap.profileloader).into(img);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,14 +127,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
-            Toast.makeText(this, "Loged Out", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this,StartActivity.class);
             startActivity(intent);
             finish();
@@ -146,6 +153,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, AppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
 }

@@ -1,21 +1,23 @@
 package com.iiit.iiitkalyani.Adapter;
 
+import android.net.Uri;
+
 public class Download {
     private String publisher;
-    private String mImageUrl;
-    private String mtitle;
-    private String mdescription;
-    private String mprofile;
+    private String ImageUrl;
+    private String title;
+    private String description;
+    private String ProfileUrl;
     public Download() {
         //empty constructor needed
     }
 
-    public Download(String name, String imageUrl, String title, String description, String profile) {
+    public Download(String name, String imageUrl, String title, String description, String ProfileUrl) {
         this.publisher = name;
-        this.mImageUrl = imageUrl;
-        this.mprofile = profile;
-        this.mtitle = title;
-        this.mdescription = description;
+        this.ImageUrl = imageUrl;
+        this.ProfileUrl = ProfileUrl;
+        this.title = title;
+        this.description = description;
     }
 
     public String getname() {
@@ -25,30 +27,31 @@ public class Download {
         this.publisher = name;
     }
     public String gettitle() {
-        return mtitle;
+        return title;
     }
     public void settitle(String title) {
-        this.mtitle = title;
+        this.title = title;
     }
 
     public String getdescription() {
-        return mdescription;
+        return description;
     }
     public void setdescription(String description) {
-        this.mdescription = description;
+        this.description = description;
     }
-    public String getprofileimg() {
-        return mprofile;
-    }
-    public void setprofileimg(String profile) {
-        mprofile = profile;
+    public String getProfileUrl() {
+        return ProfileUrl;
     }
 
-    public String getImageUrl() {
-        return mImageUrl;
+    public void setProfileUrl(String profileUrl) {
+        ProfileUrl = profileUrl;
+    }
+
+    public Uri getImageUrl() {
+        return Uri.parse(ImageUrl);
     }
 
     public void setImageUrl(String imageUrl) {
-        mImageUrl = imageUrl;
+        ImageUrl = imageUrl;
     }
 }

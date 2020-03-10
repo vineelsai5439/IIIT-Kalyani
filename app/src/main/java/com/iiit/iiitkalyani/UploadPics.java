@@ -90,7 +90,7 @@ public class UploadPics extends AppCompatActivity {
     }
 
     private void uploadFile() {
-        final ProgressDialog pd = new ProgressDialog(this);
+        final ProgressDialog pd = new ProgressDialog(this,R.style.MyAlertDialogStyle);
         pd.setMessage("Uploading");
         pd.show();
 
@@ -135,6 +135,7 @@ public class UploadPics extends AppCompatActivity {
             });
         } else {
             Toast.makeText(this, "No image was selected!", Toast.LENGTH_SHORT).show();
+            pd.dismiss();
         }
     }
 }

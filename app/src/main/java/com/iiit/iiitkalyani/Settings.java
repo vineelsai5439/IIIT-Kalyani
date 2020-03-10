@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -21,6 +22,8 @@ public class Settings extends AppCompatActivity {
     String personName;
     String personEmail;
     Uri personPhoto;
+    public Switch fp;
+    public static Boolean enablefp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class Settings extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         TextView name = findViewById(R.id.txtName);
-        CircleImageView profileimg = findViewById(R.id.Profile_image);
+        CircleImageView profileImg = findViewById(R.id.Profile_image);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(Settings.this);
         if (acct != null) {
@@ -42,6 +45,9 @@ public class Settings extends AppCompatActivity {
             personEmail = auth.getCurrentUser().getEmail();
         }
         name.setText(personName);
-        Picasso.get().load(personPhoto).into(profileimg);
+
+        fp = findViewById(R.id.fp);
+
+        //enablefp = fp.isChecked();
     }
 }

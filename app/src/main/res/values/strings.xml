@@ -13,7 +13,8 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Fest</string>
     <string name="menu_blog">Blog</string>
-    <string name="menu_cale">Accadamic Calender</string>
+    <string name="menu_cale">Academic Calender</string>
+    <string name="menu_cgpa">CGPA Calculator</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_logout">Logout</string>
     <string name="More">More</string>

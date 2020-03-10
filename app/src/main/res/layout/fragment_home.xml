@@ -14,11 +14,20 @@
         android:backgroundTint="@color/orange"
         android:progressDrawable="@color/orange" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/view"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/btnupload" />
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnupload">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btnupload" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnupload"

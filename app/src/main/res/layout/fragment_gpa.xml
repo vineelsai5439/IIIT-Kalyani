@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="2dp"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/sub1"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 1"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/sub2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sub1"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 2"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/sub3"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sub2"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 3"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/sub4"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sub3"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 4"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/sub5"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sub4"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 5"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/sub6"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sub5"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 6"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/sub7"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sub6"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 7"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/sub8"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sub7"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="Subject 8"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub1"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gpa1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub2"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gpa2"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub3"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gpa3"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub4"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gpa4"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub5"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gpa5"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub6"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gpa6"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub7"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/gpa8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gpa7"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/sub8"
+        android:ems="10"
+        android:hint="Enter Your GPA"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gpa8"
+        android:layout_marginTop="47dp"
+        android:text="Button" />
+
+</RelativeLayout>

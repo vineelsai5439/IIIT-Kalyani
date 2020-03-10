@@ -16,14 +16,22 @@
         android:name="com.iiit.iiitkalyani.ui.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
-    <fragment
-        android:id="@+id/nav_cal"
-        android:name="com.iiit.iiitkalyani.ui.CalenderFragment"
-        android:label="@string/menu_cale"
-        tools:layout="@layout/fragment_cale" />
+
     <fragment
         android:id="@+id/nav_tools"
         android:name="com.iiit.iiitkalyani.ui.FestFragment"
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_fest" />
+
+    <fragment
+        android:id="@+id/nav_cal"
+        android:name="com.iiit.iiitkalyani.ui.CalenderFragment"
+        android:label="@string/menu_cale"
+        tools:layout="@layout/fragment_cale" />
+
+    <fragment
+        android:id="@+id/nav_cgpa"
+        android:name="com.iiit.iiitkalyani.ui.CalenderFragment"
+        android:label="@string/menu_cale"
+        tools:layout="@layout/fragment_cale" />
 </navigation>

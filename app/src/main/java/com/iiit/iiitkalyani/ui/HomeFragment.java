@@ -1,6 +1,7 @@
 package com.iiit.iiitkalyani.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,15 +31,20 @@ import com.iiit.iiitkalyani.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.iiit.iiitkalyani.R.color.orange;
+
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private BlogAdapter Adapter;
     private ProgressBar ProgressCircle;
     private List<Download> Downloads;
+    private SwipeRefreshLayout refresh;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        refresh = root.findViewById(R.id.refresh);
+        refresh.setColorSchemeResources(orange);
         recyclerView = root.findViewById(R.id.view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -44,10 +54,11 @@ public class HomeFragment extends Fragment {
         DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("blog");
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Download download = postSnapshot.getValue(Download.class);
                     Downloads.add(download);
+                    //Toast.makeText(getContext(),postSnapshot.getKey(),Toast.LENGTH_SHORT).show();
                 }
 
                 Adapter = new BlogAdapter(getContext(), Downloads);
@@ -77,12 +88,24 @@ public class HomeFragment extends Fragment {
 
                     }
 
+                    @Override
+                    public void onLikeClick(String id) {
+                        Toast.makeText(getContext(),dataSnapshot.getChildren().toString(),Toast.LENGTH_SHORT).show();
+                    }
+
                 });
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getContext(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 ProgressCircle.setVisibility(View.INVISIBLE);
+            }
+        });
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Adapter.notifyDataSetChanged();
+                refresh.setRefreshing(false);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {

@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.iiit.iiitkalyani.ui.CalenderFragment;
 import com.iiit.iiitkalyani.ui.GalleryFragment;
+import com.iiit.iiitkalyani.ui.GpaFragment;
 import com.iiit.iiitkalyani.ui.HomeFragment;
 import com.iiit.iiitkalyani.ui.FestFragment;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -79,13 +80,18 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
                                 new CalenderFragment()).commit();
                         break;
+                    case R.id.nav_cgpa:
+                        toolbar.setTitle("GPA Calculator");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                                new GpaFragment()).commit();
+                        break;
                     case R.id.nav_settings:
                         Intent intent = new Intent(MainActivity.this,Settings.class);
                         startActivity(intent);
                         break;
                     case R.id.nav_logout:
                         FirebaseAuth.getInstance().signOut();
-                        Toast.makeText(MainActivity.this, "Loged Out", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_LONG).show();
                         Intent logout = new Intent(MainActivity.this,StartActivity.class);
                         startActivity(logout);
                         finish();

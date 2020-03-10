@@ -7,12 +7,11 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import static com.iiit.iiitkalyani.Settings.enablefp;
+
 public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.setContentView(R.layout.activity_splash);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         int time_Out = 200;

@@ -11,16 +11,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.iiit.iiitkalyani.R;
-
 import java.util.Objects;
 
 public class GpaFragment extends Fragment {
-    private Spinner spinner;
     private TextView sub1;
     private TextView sub2;
     private TextView sub3;
@@ -42,7 +38,7 @@ public class GpaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_gpa, container, false);
-        spinner = root.findViewById(R.id.spinner);
+        Spinner spinner = root.findViewById(R.id.spinner);
         sub1 = root.findViewById(R.id.sub1);
         sub2 = root.findViewById(R.id.sub2);
         sub3 = root.findViewById(R.id.sub3);
@@ -194,6 +190,8 @@ public class GpaFragment extends Fragment {
                         return 5;
                     case "f":
                         return 0;
+                    default:
+                        Toast.makeText(getContext(),"Enter Valid Grade!",Toast.LENGTH_SHORT).show();
                 }
                 return Integer.parseInt("0");
             }

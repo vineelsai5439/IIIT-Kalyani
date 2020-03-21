@@ -17,8 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                 map.put("name" , name);
                 map.put("email", email);
                 map.put("username" , username);
-                map.put("id" , mAuth.getCurrentUser().getUid());
+                map.put("id" , Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
                 pd.dismiss();
                 Toast.makeText(RegisterActivity.this, "Register Sucessfull", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this , MainActivity.class);

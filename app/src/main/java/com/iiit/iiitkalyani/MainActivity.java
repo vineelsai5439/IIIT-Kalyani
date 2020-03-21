@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,8 +29,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Objects;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -118,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             personPhoto = auth.getCurrentUser().getPhotoUrl();
             personEmail = auth.getCurrentUser().getEmail();
         }
-
         View header=navigationView.getHeaderView(0);
         name = header.findViewById(R.id.usrname);
         email = header.findViewById(R.id.usremail);
@@ -126,17 +126,20 @@ public class MainActivity extends AppCompatActivity {
         name.setText(personName);
         email.setText(personEmail);
         Glide.with(this).load(personPhoto).circleCrop().placeholder(R.mipmap.profileloader).into(img);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.pfimg);
+        View view = MenuItemCompat.getActionView(menuItem);
+        CircleImageView img = view.findViewById(R.id.prfimg);
+        Glide.with(this).load(personPhoto).circleCrop().placeholder(R.mipmap.profileloader).into(img);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
@@ -150,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(sett);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
     @Override
@@ -159,5 +161,4 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, AppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 }

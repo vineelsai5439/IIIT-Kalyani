@@ -11,8 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:backgroundTint="@color/orange"
-        android:progressDrawable="@color/orange" />
+        android:theme="@style/MyAlertDialogStyle" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
@@ -40,4 +39,5 @@
         android:clickable="true"
         android:src="@drawable/ic_add"
         android:focusable="true" />
+
 </RelativeLayout>

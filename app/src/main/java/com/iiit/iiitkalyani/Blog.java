@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.r0adkll.slidr.Slidr;
 
 public class Blog extends AppCompatActivity {
 
@@ -14,6 +15,8 @@ public class Blog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog);
+        Slidr.attach(this);
+
         Intent intent = getIntent();
         Uri img = intent.getData();
         String title = intent.getStringExtra("title");

@@ -61,7 +61,6 @@ public class UploadPics extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void openFileChooser() {

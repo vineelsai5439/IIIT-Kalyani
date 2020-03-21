@@ -1,22 +1,20 @@
 package com.iiit.iiitkalyani.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +28,6 @@ import com.iiit.iiitkalyani.Adapter.Download;
 import com.iiit.iiitkalyani.R;
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.iiit.iiitkalyani.R.color.orange;
 
 public class HomeFragment extends Fragment {
@@ -50,6 +47,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FloatingActionButton btn = root.findViewById(R.id.btnupload);
         ProgressCircle = root.findViewById(R.id.progress_circle);
+
         Downloads = new ArrayList<>();
         DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("blog");
         mDatabaseRef.addValueEventListener(new ValueEventListener() {

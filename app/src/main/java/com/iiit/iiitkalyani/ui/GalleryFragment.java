@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +35,7 @@ public class GalleryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
         RecyclerView = root.findViewById(R.id.view);
         RecyclerView.setHasFixedSize(true);
-        RecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         FloatingActionButton btn = root.findViewById(R.id.btnupload);
         ProgressCircle = root.findViewById(R.id.progress_circle);
         mUploads = new ArrayList<>();

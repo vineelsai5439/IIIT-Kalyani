@@ -11,9 +11,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.iiit.iiitkalyani.R;
+
 import java.util.Objects;
 
 public class GpaFragment extends Fragment {
@@ -56,15 +59,15 @@ public class GpaFragment extends Fragment {
         gpa7 = root.findViewById(R.id.gpa7);
         gpa8 = root.findViewById(R.id.gpa8);
         btn = root.findViewById(R.id.button);
-        String[] sem = new String[]{"Select Your Semester","1","2","3","4","5","6","7","8"};
-        ArrayAdapter adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),android.R.layout.simple_spinner_dropdown_item,sem);
+        String[] sem = new String[]{"Select Your Semester", "1", "2", "3", "4", "5", "6", "7", "8"};
+        ArrayAdapter adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_spinner_dropdown_item, sem);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     case 0:
-                        Toast.makeText(getContext(),"Select your semester ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Select your semester ", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         sub1.setText("HU-101");
@@ -165,12 +168,12 @@ public class GpaFragment extends Fragment {
                 String gpaa6 = gpa6.getText().toString().toLowerCase();
                 String gpaa7 = gpa7.getText().toString().toLowerCase();
                 String gpaa8 = gpa8.getText().toString().toLowerCase();
-                int[] gpa = new  int[]{convert(gpaa1),convert(gpaa2),convert(gpaa3),convert(gpaa4),convert(gpaa5),convert(gpaa6),convert(gpaa7),convert(gpaa8)};
+                int[] gpa = new int[]{convert(gpaa1), convert(gpaa2), convert(gpaa3), convert(gpaa4), convert(gpaa5), convert(gpaa6), convert(gpaa7), convert(gpaa8)};
                 double sum;
                 sum = 0.0;
                 for (int num : gpa) sum += num;
-                String avg = String.valueOf(sum/8);
-                Toast.makeText(getContext(),avg,Toast.LENGTH_SHORT).show();
+                String avg = String.valueOf(sum / 8);
+                Toast.makeText(getContext(), avg, Toast.LENGTH_SHORT).show();
                 //return avg;
             }
 
@@ -191,7 +194,7 @@ public class GpaFragment extends Fragment {
                     case "f":
                         return 0;
                     default:
-                        Toast.makeText(getContext(),"Enter Valid Grade!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Enter Valid Grade!", Toast.LENGTH_SHORT).show();
                 }
                 return Integer.parseInt("0");
             }

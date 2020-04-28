@@ -14,28 +14,35 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FpLogin"/>
-        <activity android:name=".Blog"
-            android:theme="@style/AppTheme.SlidrActivityTheme"/>
+        <activity android:name=".FpLogin" />
+        <activity
+            android:name=".Blog"
+            android:theme="@style/AppTheme.SlidrActivityTheme" />
         <activity android:name=".Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".PassReset" />
-        <activity android:name=".UploadPics" />
-        <activity android:name=".Blog_Post" />
+        <activity
+            android:name=".UploadPics"
+            android:theme="@style/AppTheme.SlidrActivityTheme" />
+        <activity
+            android:name=".Blog_Post"
+            android:theme="@style/AppTheme.SlidrActivityTheme" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Settings"
-            android:theme="@style/AppTheme.SlidrActivityTheme"/>
+        <activity
+            android:name=".Settings"
+            android:theme="@style/AppTheme.SlidrActivityTheme" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".StartActivity" />
+        <activity android:name=".StartActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

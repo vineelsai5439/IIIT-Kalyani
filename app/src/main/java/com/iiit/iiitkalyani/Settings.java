@@ -1,12 +1,14 @@
 package com.iiit.iiitkalyani;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -14,16 +16,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.r0adkll.slidr.Slidr;
 
 import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Settings extends AppCompatActivity {
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String SWITCH = "switch";
+    public static final String SWITCHPFIMG = "switchpfimg";
+    public static boolean switchOn;
+    public static boolean switchPf;
+    public Switch fp;
+    public Switch PfImg;
     String personName;
     String personEmail;
     Uri personPhoto;
-    public Switch fp;
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String SWITCH = "switch";
-    public static boolean switchOnOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +47,7 @@ public class Settings extends AppCompatActivity {
             personName = acct.getDisplayName();
             personEmail = acct.getEmail();
             personPhoto = acct.getPhotoUrl();
-        }else {
+        } else {
             personName = Objects.requireNonNull(auth.getCurrentUser()).getDisplayName();
             personPhoto = auth.getCurrentUser().getPhotoUrl();
             personEmail = auth.getCurrentUser().getEmail();
@@ -57,23 +63,34 @@ public class Settings extends AppCompatActivity {
                 saveData();
             }
         });
+        PfImg = findViewById(R.id.pfimg);
+        PfImg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveData();
+            }
+        });
         loadData();
         updateViews();
 
     }
+
     public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(SWITCH, fp.isChecked());
+        editor.putBoolean(SWITCHPFIMG, PfImg.isChecked());
         editor.apply();
     }
 
     public void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        switchOnOff = sharedPreferences.getBoolean(SWITCH, Boolean.parseBoolean(SWITCH));
+        switchOn = sharedPreferences.getBoolean(SWITCH, Boolean.parseBoolean(SWITCH));
+        switchPf = sharedPreferences.getBoolean(SWITCHPFIMG, Boolean.parseBoolean(SWITCHPFIMG));
     }
 
     public void updateViews() {
-        fp.setChecked(switchOnOff);
+        fp.setChecked(switchOn);
+        PfImg.setChecked(switchPf);
     }
 }

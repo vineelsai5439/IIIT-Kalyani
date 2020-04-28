@@ -1,7 +1,5 @@
 package com.iiit.iiitkalyani;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -13,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,7 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.r0adkll.slidr.Slidr;
 import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -43,6 +47,7 @@ public class Blog_Post extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_post);
+        Slidr.attach(this);
 
         Button mButtonChooseImage = findViewById(R.id.button_choose_image);
         Button mButtonUpload = findViewById(R.id.button_upload);
@@ -83,7 +88,6 @@ public class Blog_Post extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             ImageUri = data.getData();
-
             Picasso.get().load(ImageUri).into(ImageView);
         }
     }
@@ -95,11 +99,11 @@ public class Blog_Post extends AppCompatActivity {
     }
 
     private void uploadFile() {
-        final ProgressDialog pd = new ProgressDialog(this,R.style.MyAlertDialogStyle);
+        final ProgressDialog pd = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         pd.setMessage("Uploading");
         pd.show();
 
-        if (ImageUri != null){
+        if (ImageUri != null) {
             final StorageReference filePath = FirebaseStorage.getInstance().getReference("blog").child(System.currentTimeMillis() + "." + getFileExtension(ImageUri));
 
             StorageTask uploadtask = filePath.putFile(ImageUri);
@@ -107,7 +111,7 @@ public class Blog_Post extends AppCompatActivity {
             uploadtask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()){
+                    if (!task.isSuccessful()) {
                         throw Objects.requireNonNull(task.getException());
                     }
                     return filePath.getDownloadUrl();
@@ -123,17 +127,17 @@ public class Blog_Post extends AppCompatActivity {
 
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("blog");
                     String ID = ref.push().getKey();
-                    HashMap<String , Object> map = new HashMap<>();
-                    map.put("title" , title.getText().toString());
-                    map.put("description" , description.getText().toString());
-                    map.put("imageUrl" , imageUrl);
-                    map.put("ProfileUrl" , Profile);
-                    map.put("name" , Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("title", title.getText().toString());
+                    map.put("description", description.getText().toString());
+                    map.put("imageUrl", imageUrl);
+                    map.put("ProfileUrl", Profile);
+                    map.put("name", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
                     if (ID != null) {
                         ref.child(ID).setValue(map);
                     }
                     pd.dismiss();
-                    startActivity(new Intent(Blog_Post.this , MainActivity.class));
+                    startActivity(new Intent(Blog_Post.this, MainActivity.class));
                     finish();
                 }
             }).addOnFailureListener(new OnFailureListener() {

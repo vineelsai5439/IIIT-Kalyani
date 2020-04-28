@@ -8,8 +8,10 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.iiit.iiitkalyani.R;
 
 public class FestFragment extends Fragment {
@@ -25,7 +27,7 @@ public class FestFragment extends Fragment {
 
         //layout.animate().alpha(0f).setDuration(10);
 
-        TranslateAnimation animation = new TranslateAnimation(0 , 0 , 0 , -1000);
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, -1000);
         animation.setDuration(2000);
         animation.setFillAfter(false);
         animation.setAnimationListener(new MyAnimationListener());
@@ -35,6 +37,7 @@ public class FestFragment extends Fragment {
         return root;
 
     }
+
     private class MyAnimationListener implements Animation.AnimationListener {
 
         @Override

@@ -1,6 +1,6 @@
 package com.iiit.iiitkalyani.Adapter;
 
-import   android.content.Context;
+import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,18 +20,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iiit.iiitkalyani.R;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
-    private Context Context;
     private static List<Download> downloads;
     private static OnItemClickListener listener;
+    private Context Context;
 
     public BlogAdapter(Context context, List<Download> Download) {
         Context = context;
         downloads = Download;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,10 +48,10 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         String temp = uploadCurrent.getdescription();
         int x = temp.length();
         String description;
-        if (x <= 35){
+        if (x <= 35) {
             description = temp;
         } else {
-            description = temp.substring(0,35).trim() + "...";
+            description = temp.substring(0, 35).trim() + "...";
         }
         //Toast.makeText(Context,uploadCurrent.getProfileUrl(),Toast.LENGTH_SHORT).show();
         Picasso.get().load(uploadCurrent.getProfileUrl()).placeholder(R.drawable.profile).into(holder.profile_image);
@@ -61,7 +66,15 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         return downloads.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        BlogAdapter.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String ID, int position, Uri img, String title, String des, String name);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView des;
         private TextView pro_name;
@@ -75,8 +88,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
             des = itemView.findViewById(R.id.post_description);
             title = itemView.findViewById(R.id.post_title);
             imageView = itemView.findViewById(R.id.post_image);
-            final ImageButton btndownload = itemView.findViewById(R.id.btndownload);
-            final ImageButton btnlike = itemView.findViewById(R.id.btnlike);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,55 +101,10 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
                         String title = uploadCurrent.gettitle();
                         String des = uploadCurrent.getdescription();
                         String name = uploadCurrent.getname();
-                        listener.onItemClick(ID,position,img,title,des,name);
+                        listener.onItemClick(ID, position, img, title, des, name);
                     }
                 }
             });
-            btndownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION){
-                        Download uploadCurrent = downloads.get(position);
-                        Uri img = uploadCurrent.getImageUrl();
-                        listener.onDeleteClick(img);
-                    }
-                }
-            });
-            btnlike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION){
-                        String id = FirebaseAuth.getInstance().getUid();
-                        listener.onLikeClick(id);
-                        DatabaseReference like = FirebaseDatabase.getInstance().getReference().child("likes");
-                        like.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                               // if (dataSnapshot.child(po))
-                                btnlike.setBackgroundResource(R.drawable.like);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-                    }
-                }
-            });
-
         }
-    }
-    public interface OnItemClickListener {
-        void onItemClick(String ID, int position, Uri img, String title, String des, String name);
-        void onDeleteClick(Uri img);
-        void onLikeClick(String id);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        BlogAdapter.listener = listener;
     }
 }

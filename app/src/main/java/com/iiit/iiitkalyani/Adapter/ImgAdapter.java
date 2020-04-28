@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.iiit.iiitkalyani.R;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ImageViewHolder> {
@@ -43,6 +46,7 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ImageViewHolder>
     public static class ImageViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewName;
         private ImageView imageView;
+
         private ImageViewHolder(View itemView) {
             super(itemView);
 

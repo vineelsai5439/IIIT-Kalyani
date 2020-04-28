@@ -24,4 +24,6 @@
     <string name="TimeTable">Time Table</string>
     <string name="AcademicCalendar">Academic Calendar</string>
     <string name="todo">TODO</string>
+    <string name="menu_messages">Chat</string>
+    <string name="menu_person">Users</string>
 </resources>

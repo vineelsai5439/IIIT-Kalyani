@@ -3,6 +3,7 @@ package com.iiit.iiitkalyani.Adapter;
 public class Upload {
     private String mName;
     private String mImageUrl;
+
     public Upload() {
         //empty constructor needed
     }
@@ -19,9 +20,11 @@ public class Upload {
     public String getName() {
         return mName;
     }
+
     public void setName(String name) {
         mName = name;
     }
+
     public String getImageUrl() {
         return mImageUrl;
     }

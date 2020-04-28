@@ -1,12 +1,14 @@
 package com.iiit.iiitkalyani;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,11 +21,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class StartActivity extends AppCompatActivity {
 
-    private FirebaseAuth Auth;
     public static int RC_SIGN_IN = 1;
+    private FirebaseAuth Auth;
     private GoogleSignInClient GoogleSignInClient;
 
     @Override
@@ -32,13 +36,13 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         Button register = findViewById(R.id.register);
         Button login = findViewById(R.id.login);
-        SignInButton gsignin = findViewById(R.id.Gsignin);
+        SignInButton GSign = findViewById(R.id.Gsignin);
         Auth = FirebaseAuth.getInstance();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this , RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(StartActivity.this, RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
             }
         });
@@ -46,11 +50,11 @@ public class StartActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this , LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(StartActivity.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
             }
         });
-        gsignin.setOnClickListener(new View.OnClickListener() {
+        GSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
@@ -63,6 +67,7 @@ public class StartActivity extends AppCompatActivity {
                 .build();
         GoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
+
     private void signIn() {
         Intent signInIntent = GoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -79,37 +84,39 @@ public class StartActivity extends AppCompatActivity {
                     firebaseAuthWithGoogle(account);
                 }
             } catch (ApiException e) {
-                Toast.makeText(StartActivity.this,"Google Sign in Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(StartActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
+        final AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         Auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(StartActivity.this,"Sign in Successful",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StartActivity.this,MainActivity.class);
+                            Toast.makeText(StartActivity.this, "Sign in Successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StartActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(StartActivity.this,"Error",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StartActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-            Intent intent = new Intent(StartActivity.this,FpLogin.class);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Intent intent = new Intent(StartActivity.this, FpLogin.class);
             startActivity(intent);
             finish();
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -8,6 +8,7 @@ public class Download {
     private String title;
     private String description;
     private String ProfileUrl;
+
     public Download() {
         //empty constructor needed
     }
@@ -23,12 +24,15 @@ public class Download {
     public String getname() {
         return publisher;
     }
+
     public void setname(String name) {
         this.publisher = name;
     }
+
     public String gettitle() {
         return title;
     }
+
     public void settitle(String title) {
         this.title = title;
     }
@@ -36,9 +40,11 @@ public class Download {
     public String getdescription() {
         return description;
     }
+
     public void setdescription(String description) {
         this.description = description;
     }
+
     public String getProfileUrl() {
         return ProfileUrl;
     }

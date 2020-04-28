@@ -76,35 +76,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/Description"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="italic" />
 
-            <ImageButton
-                android:id="@+id/btnlike"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/post_description"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/like_not"
-                android:contentDescription="@string/todo" />
-
-            <ImageButton
-                android:id="@+id/btndownload"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/post_description"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/transparent"
-                android:contentDescription="@string/todo"
-                app:srcCompat="@drawable/download" />
         </RelativeLayout>
 
     </RelativeLayout>

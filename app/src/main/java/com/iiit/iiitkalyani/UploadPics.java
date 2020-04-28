@@ -1,7 +1,5 @@
 package com.iiit.iiitkalyani;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -13,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,7 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.r0adkll.slidr.Slidr;
 import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -40,6 +44,7 @@ public class UploadPics extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_pics);
+        Slidr.attach(this);
 
         Button mButtonChooseImage = findViewById(R.id.button_choose_image);
         Button mButtonUpload = findViewById(R.id.button_upload);
@@ -89,11 +94,11 @@ public class UploadPics extends AppCompatActivity {
     }
 
     private void uploadFile() {
-        final ProgressDialog pd = new ProgressDialog(this,R.style.MyAlertDialogStyle);
+        final ProgressDialog pd = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         pd.setMessage("Uploading");
         pd.show();
 
-        if (ImageUri != null){
+        if (ImageUri != null) {
             final StorageReference filePath = FirebaseStorage.getInstance().getReference("uploads").child(System.currentTimeMillis() + "." + getFileExtension(ImageUri));
 
             StorageTask uploadtask = filePath.putFile(ImageUri);
@@ -101,7 +106,7 @@ public class UploadPics extends AppCompatActivity {
             uploadtask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()){
+                    if (!task.isSuccessful()) {
                         throw Objects.requireNonNull(task.getException());
                     }
                     return filePath.getDownloadUrl();
@@ -115,15 +120,15 @@ public class UploadPics extends AppCompatActivity {
                     }
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("uploads");
                     String ID = ref.push().getKey();
-                    HashMap<String , Object> map = new HashMap<>();
-                    map.put("name" , EditTextFileName.getText().toString());
-                    map.put("imageUrl" , imageUrl);
-                    map.put("publisher" , Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("name", EditTextFileName.getText().toString());
+                    map.put("imageUrl", imageUrl);
+                    map.put("publisher", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
                     if (ID != null) {
                         ref.child(ID).setValue(map);
                     }
                     pd.dismiss();
-                    startActivity(new Intent(UploadPics.this , MainActivity.class));
+                    startActivity(new Intent(UploadPics.this, MainActivity.class));
                     finish();
                 }
             }).addOnFailureListener(new OnFailureListener() {

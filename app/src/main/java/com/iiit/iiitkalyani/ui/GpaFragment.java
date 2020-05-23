@@ -17,8 +17,6 @@ import androidx.fragment.app.Fragment;
 
 import com.iiit.iiitkalyani.R;
 
-import java.util.Objects;
-
 public class GpaFragment extends Fragment {
     private TextView sub1;
     private TextView sub2;
@@ -40,7 +38,7 @@ public class GpaFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_gpa, container, false);
+        final View root = inflater.inflate(R.layout.fragment_gpa, container, false);
         Spinner spinner = root.findViewById(R.id.spinner);
         sub1 = root.findViewById(R.id.sub1);
         sub2 = root.findViewById(R.id.sub2);
@@ -60,7 +58,7 @@ public class GpaFragment extends Fragment {
         gpa8 = root.findViewById(R.id.gpa8);
         btn = root.findViewById(R.id.button);
         String[] sem = new String[]{"Select Your Semester", "1", "2", "3", "4", "5", "6", "7", "8"};
-        ArrayAdapter adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_spinner_dropdown_item, sem);
+        ArrayAdapter adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, sem);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -174,6 +172,8 @@ public class GpaFragment extends Fragment {
                 for (int num : gpa) sum += num;
                 String avg = String.valueOf(sum / 8);
                 Toast.makeText(getContext(), avg, Toast.LENGTH_SHORT).show();
+                TextView textView = root.findViewById(R.id.textView4);
+                textView.setText(avg);
                 //return avg;
             }
 

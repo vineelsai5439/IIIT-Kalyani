@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.r0adkll.slidr.Slidr;
+import com.squareup.picasso.Picasso;
 
 public class Blog extends AppCompatActivity {
 
@@ -24,7 +24,7 @@ public class Blog extends AppCompatActivity {
         String title = intent.getStringExtra("title");
         String des = intent.getStringExtra("des");
         ImageView imageView = findViewById(R.id.image);
-        Glide.with(this).load(img).into(imageView);
+        Picasso.get().load(img).placeholder(R.drawable.loading).into(imageView);
         TextView tit = findViewById(R.id.title);
         tit.setText(title);
 

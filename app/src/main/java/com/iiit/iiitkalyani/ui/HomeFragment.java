@@ -60,13 +60,13 @@ public class HomeFragment extends Fragment {
                 }
 
                 Adapter = new BlogAdapter(getContext(), Downloads);
-                recyclerView.setAdapter(Adapter);
+
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 layoutManager.setReverseLayout(true);
                 layoutManager.setStackFromEnd(true);
+                recyclerView.setLayoutManager(layoutManager);
                 Adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(Adapter);
                 ProgressCircle.setVisibility(View.INVISIBLE);
 
                 Adapter.setOnItemClickListener(new BlogAdapter.OnItemClickListener() {

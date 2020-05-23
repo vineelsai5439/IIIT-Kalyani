@@ -3,7 +3,6 @@ package com.iiit.iiitkalyani;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,22 +29,14 @@ public class FpLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fp_login);
 
-        fp = findViewById(R.id.fp);
-        fp.setVisibility(View.INVISIBLE);
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         switchOn = sharedPreferences.getBoolean(SWITCH, false);
-        if (switchOn) {
-            auth();
-        } else {
-            changeActivity();
-        }
-        fp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth();
-                fp.setVisibility(View.INVISIBLE);
-            }
-        });
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("IIIT Kalyani")
+                .setSubtitle("Authenticate to Login to IIIT Kalyani App")
+                .setDeviceCredentialAllowed(true)
+                .build();
+
         Executor executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(FpLogin.this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
@@ -53,8 +44,7 @@ public class FpLogin extends AppCompatActivity {
             public void onAuthenticationError(int errorCode,
                                               @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(getApplicationContext(), "Click on FingerPrint icon to continue", LENGTH_SHORT).show();
-                fp.setVisibility(View.VISIBLE);
+                finish();
             }
 
             @Override
@@ -71,13 +61,11 @@ public class FpLogin extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Authentication failed", LENGTH_SHORT).show();
             }
         });
-
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("IIIT Kalyani")
-                .setSubtitle("Authenticate to Login to IIIT Kalyani App")
-                .setDeviceCredentialAllowed(true)
-                .build();
-
+        if (switchOn) {
+            auth();
+        } else {
+            changeActivity();
+        }
     }
 
     private void changeActivity() {
@@ -88,6 +76,8 @@ public class FpLogin extends AppCompatActivity {
     }
 
     private void auth() {
-        biometricPrompt.authenticate(promptInfo);
+        if (promptInfo != null) {
+            biometricPrompt.authenticate(promptInfo);
+        }
     }
 }
